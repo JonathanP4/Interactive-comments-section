@@ -1,7 +1,6 @@
 # Logs
 logs
 *.log
-interactive-comments-section-main
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -24,3 +23,4 @@ dist-ssr
 *.sw?
 
 .vercel
+interactive-comments-section-main
