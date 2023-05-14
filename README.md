@@ -6,22 +6,22 @@
 * Reply to a comment or another reply
 * Delete your comments
 
-### TO DO:
+### Todo:
 
-1. Work on desktop design.
-2. Store (comments and replies) data in local storage.
-3. Sort comments and replies by amount of upvotes.
-4. Dinamically set the time that a comment or reply was posted based on user's current date/time (will probably use a 3rd party library for that).
+1. Store (comments and replies) data in local storage.
+2. Sort comments and replies by amount of upvotes.
+3. Dinamically set the time that a comment or reply was posted based on user's current date/time.
 
 ***
 
-### Side Notes
+## Screenshots
 
-#### About the screen size
+**Desktop**
+![Desktop Design](./screenshots/desktop_design.png)
+![Desktop Active States](./screenshots/desktop_active_states.png)
+![Desktop Modal](./screenshots/desktop_modal.png)
 
-Currently this app only looks good on devices with a screen width < 541px
-
-#### Concerns
-
-My biggest concern is in regard to the performance of this app. The way I implemented some of the functionality might be too performance intensive, plus, the amount of components might result in VERY long loading times for slower internet connections.<br/>
-With that said though at my current knowledge level of React I don't think I'm able to improve it much when it comes to that. Maybe in a few weeks/months I'll come back to it and laugh at my own mistakes and fix this code.
+**Mobile**
+![Mobile Design](./screenshots/mobile_design.png)
+![Mobile Active States](./screenshots/mobile_active_states.png)
+![Mobile Modal](./screenshots/mobile_modal.png)
