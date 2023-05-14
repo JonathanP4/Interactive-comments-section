@@ -70,7 +70,7 @@
   .reply-card {
     grid-template-areas:
       "profile profile"
-      "comment comment"
+      "reply reply"
       "rating buttons";
     grid-template-columns: repeat(2, 1fr);
   }

@@ -1,20 +1,23 @@
 import deleteIcon from "/assets/icon-delete.svg";
 import styles from "./Delete.module.css";
 import Modal from "../Modal/Modal";
+import { useState } from "react";
 
 function Delete(props: { clickEvent: () => void }) {
+  const [deleteState, setDeleteState] = useState(false);
   function deleteReply() {
     props.clickEvent();
   }
 
   function showModal() {
-    const dialog = document.querySelector("dialog");
-    dialog?.showModal();
+    setDeleteState((state) => !state);
   }
 
   return (
     <>
-      <Modal onClickEvent={deleteReply} />
+      {deleteState && (
+        <Modal setState={setDeleteState} onClickEvent={deleteReply} />
+      )}
       <div onClick={showModal} className={styles.delete}>
         <img src={deleteIcon} alt="" />
         <span>Delete</span>

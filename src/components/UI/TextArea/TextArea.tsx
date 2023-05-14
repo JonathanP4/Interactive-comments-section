@@ -2,7 +2,7 @@ import { Ref, forwardRef, useEffect } from "react";
 import styles from "./TextArea.module.css";
 
 const TextArea = forwardRef(function TextArea(
-  props: { content: string; id?: string },
+  props: { content?: string; id?: string },
   ref: Ref<HTMLTextAreaElement>
 ) {
   useEffect(() => {
@@ -20,9 +20,9 @@ const TextArea = forwardRef(function TextArea(
       <textarea
         id={styles.txt_area}
         cols={30}
-        rows={4}
+        rows={3}
         ref={ref}
-        defaultValue={props.content}
+        defaultValue={props.content ? `@${props.content} ` : ""}
       />
     </div>
   );

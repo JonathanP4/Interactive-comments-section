@@ -26,3 +26,25 @@
 
 #textarea_id {
 }
+
+@media (max-width: 768px) {
+  .add-comment {
+    display: grid;
+    grid-template-areas:
+      "text text"
+      "img button";
+
+    & img {
+      grid-area: img;
+    }
+    & div {
+      grid-area: text;
+    }
+    & button {
+      grid-area: button;
+      justify-self: end;
+      padding: 0.9rem;
+      min-width: 120px;
+    }
+  }
+}

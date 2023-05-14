@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Comment from "../Comment/Comment";
-import Data from "../../store/data-context";
 import styles from "./Comments.module.css";
+import { Data } from "../../store/DataProvider";
 
 function Comments() {
   const ctx = useContext(Data);

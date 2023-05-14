@@ -1,4 +1,4 @@
-export interface Data {
+export interface DataType {
   currentUser: {
     image: {
       png: string;

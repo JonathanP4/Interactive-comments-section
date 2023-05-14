@@ -22,3 +22,16 @@ main {
   padding: 1rem;
   max-width: 740px;
 }
+
+.send-comment-card {
+  position: sticky;
+  bottom: 0;
+}
+
+@media (min-width: 1024px) {
+  body {
+    height: 100vh;
+    display: grid;
+    align-items: center;
+  }
+}
