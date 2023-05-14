@@ -1,0 +1,31 @@
+.rating {
+  justify-items: center;
+  background-color: var(--Light-gray);
+  display: grid;
+  border-radius: 0.4rem;
+  & div:has(img) {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.85rem 0.6rem;
+    &:hover {
+      transition: filter ease-in 0.3s;
+      filter: saturate(24%) brightness(47%);
+    }
+  }
+  & span {
+    color: var(--Moderate-blue);
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+  .rating {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    & div:has(img) {
+      padding: 0.8rem 0.9rem;
+    }
+  }
+}

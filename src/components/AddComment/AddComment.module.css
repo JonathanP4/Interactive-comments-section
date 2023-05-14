@@ -1,0 +1,28 @@
+.add-comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  animation: pop 0.3s ease-in forwards;
+
+  & img {
+    max-width: 35px;
+  }
+  & div {
+    width: 100%;
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(105%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
+
+#textarea_id {
+}

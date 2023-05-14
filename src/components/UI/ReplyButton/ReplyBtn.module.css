@@ -1,0 +1,7 @@
+.reply-btn {
+  display: flex;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--Moderate-blue);
+}

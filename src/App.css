@@ -1,0 +1,24 @@
+:root {
+  --Moderate-blue: hsl(238, 40%, 52%);
+  --Soft-red: hsl(358, 79%, 66%);
+  --Light-grayish-blue: hsl(239, 58%, 85%);
+  --Pale-red: hsl(357, 100%, 86%);
+  --Dark-blue: hsl(212, 24%, 26%);
+  --Grayish-blue: hsl(211, 10%, 45%);
+  --Light-gray: hsl(223, 19%, 93%);
+  --Very-light-gray: hsl(228, 33%, 97%);
+  --White: hsl(0, 0%, 100%);
+  --Content-max-width: 850px;
+  scroll-behavior: smooth;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  background-color: var(--Very-light-gray);
+}
+
+main {
+  margin: 0 auto;
+  padding: 1rem;
+  max-width: 740px;
+}

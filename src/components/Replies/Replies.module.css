@@ -1,0 +1,14 @@
+.replies {
+  display: grid;
+  gap: 1rem;
+  border-left: 2px solid var(--Light-gray);
+  margin-left: 2rem;
+  padding-left: 2rem;
+}
+
+@media (max-width: 768px) {
+  .replies {
+    margin-left: 0.5rem;
+    padding-left: 0.8rem;
+  }
+}

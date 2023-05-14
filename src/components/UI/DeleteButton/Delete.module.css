@@ -1,0 +1,7 @@
+.delete {
+  display: flex;
+  align-items: center;
+  color: var(--Soft-red);
+  font-weight: 500;
+  gap: 0.4rem;
+}

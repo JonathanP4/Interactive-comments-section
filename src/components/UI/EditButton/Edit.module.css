@@ -1,0 +1,7 @@
+.edit {
+  display: flex;
+  align-items: center;
+  color: var(--Moderate-blue);
+  font-weight: 500;
+  gap: 0.4rem;
+}

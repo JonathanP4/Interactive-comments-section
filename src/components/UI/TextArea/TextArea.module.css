@@ -1,0 +1,20 @@
+.textarea-container {
+  border: 2px solid var(--Light-gray);
+  border-radius: 0.6rem;
+  padding: 1rem;
+
+  &:has(textarea:focus) {
+    border-color: var(--Moderate-blue);
+  }
+
+  & textarea {
+    width: 100%;
+    font-size: 1rem;
+    resize: none;
+    border: none;
+  }
+}
+
+#txt_area {
+  outline: 0;
+}

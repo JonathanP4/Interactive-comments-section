@@ -1,0 +1,19 @@
+.button {
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  background-color: var(--Moderate-blue);
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &:hover,
+  &:not(:hover) {
+    transition: opacity 0.2s ease-in-out;
+  }
+}
