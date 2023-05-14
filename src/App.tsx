@@ -4,11 +4,18 @@ import Comments from "./components/Comments/Comments";
 import DataProvider from "./store/DataProvider";
 
 function App() {
+  function clickHandler() {
+    console.log("click");
+  }
   return (
     <main>
       <DataProvider>
         <Comments />
-        <AddComment text={{ btnText: "send" }} className="send-comment-card" />
+        <AddComment
+          clickEvent={clickHandler}
+          text={{ btnText: "send" }}
+          className="send-comment-card"
+        />
       </DataProvider>
     </main>
   );

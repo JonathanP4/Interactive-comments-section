@@ -11,7 +11,10 @@ import { DataType } from "../types/types";
 export const Data = createContext({
   comments: data.comments,
   current_user: data.currentUser,
-  update: (a: SetStateAction<DataType>) => {},
+
+  update: (a: SetStateAction<DataType>): unknown => {
+    return a;
+  },
 });
 
 function DataProvider(props: { children: ReactNode }) {
@@ -22,7 +25,6 @@ function DataProvider(props: { children: ReactNode }) {
     current_user: state.currentUser,
     update: setState,
   };
-
   return <Data.Provider value={contextValue}>{props.children}</Data.Provider>;
 }
 

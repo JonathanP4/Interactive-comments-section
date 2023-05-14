@@ -3,7 +3,6 @@ import styles from "./AddComment.module.css";
 import TextArea from "../UI/TextArea/TextArea";
 import ButtonCard from "../UI/ButtonCard/ButtonCard";
 import Card from "../UI/Card/Card";
-import { Actions } from "../Comment/Comment";
 import { Data } from "../../store/DataProvider";
 
 function AddComment(props: {
