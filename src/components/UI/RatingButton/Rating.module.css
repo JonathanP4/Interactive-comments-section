@@ -1,5 +1,6 @@
 .rating {
   justify-items: center;
+  user-select: none;
   background-color: var(--Light-gray);
   display: grid;
   border-radius: 0.4rem;

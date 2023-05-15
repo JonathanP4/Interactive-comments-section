@@ -38,7 +38,10 @@ function Reply(props: {
   }
   function editReply() {
     if (textAreaRef.current) {
-      const content = textAreaRef.current.value;
+      const content = textAreaRef.current.value.replaceAll(
+        `@${props.reply.replyingTo}`,
+        ""
+      );
 
       if (content.trim().length < 1) return;
 
@@ -57,7 +60,12 @@ function Reply(props: {
       currentUser: ctx.current_user,
     });
   }
+
   function reply(content: string) {
+    if (textAreaRef.current) textAreaRef.current.focus();
+
+    content = content.replaceAll(`@${props.reply.replyingTo}`, "");
+
     if (content.trim().length < 1) return;
 
     const commentIndex = ctx.comments.findIndex(
@@ -81,7 +89,6 @@ function Reply(props: {
       },
     });
     setReplyState((state) => !state);
-
     ctx.update({
       comments: ctx.comments,
       currentUser: ctx.current_user,
@@ -89,7 +96,7 @@ function Reply(props: {
   }
 
   return (
-    <div style={{ display: "grid", gap: "1rem" }}>
+    <div className={styles["card-container"]}>
       <Card className={styles["reply-card"]}>
         <div className={styles["rating-container"]}>
           <Rating score={props.reply.score} />
@@ -102,7 +109,10 @@ function Reply(props: {
         <div className={styles.reply}>
           {editState && (
             <>
-              <TextArea ref={textAreaRef} content={props.reply.content} />
+              <TextArea
+                ref={textAreaRef}
+                content={`@${props.reply.replyingTo} ${props.reply.content}`}
+              />
               <ButtonCard clickEvent={editReply}>Update</ButtonCard>
             </>
           )}
@@ -128,7 +138,7 @@ function Reply(props: {
       {replyState && (
         <AddComment
           clickEvent={reply}
-          text={{ mention: props.reply.user.username, btnText: "Reply" }}
+          text={{ mention: props.reply.replyingTo, btnText: "Reply" }}
         />
       )}
     </div>

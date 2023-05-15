@@ -13,23 +13,20 @@ function AddComment(props: {
   const ctx = useContext(Data);
   const txtareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function replyHandler() {
-    const value = txtareaRef.current?.value;
-    if (props.text.mention && value && value?.includes(props.text.mention)) {
-      const matchMention = value.match(`@${props.text.mention}`)!;
-      const updatedValue = value.replaceAll(matchMention[0], "").trim();
-
-      updatedValue.length > 0 && props.clickEvent(updatedValue);
-    } else if (value && value?.trim().length > 0) {
-      value && props.clickEvent(value);
+  function clickEvent() {
+    if (txtareaRef.current) {
+      props.clickEvent(txtareaRef.current.value);
     }
   }
 
   return (
     <Card className={`${styles["add-comment"]} ${props.className || ""}`}>
       <img src={ctx.current_user.image.png} alt="" />
-      <TextArea ref={txtareaRef} content={props.text.mention} />
-      <ButtonCard clickEvent={replyHandler}>{props.text.btnText}</ButtonCard>
+      <TextArea
+        ref={txtareaRef}
+        content={props.text.mention && `@${props.text.mention} `}
+      />
+      <ButtonCard clickEvent={clickEvent}>{props.text.btnText}</ButtonCard>
     </Card>
   );
 }

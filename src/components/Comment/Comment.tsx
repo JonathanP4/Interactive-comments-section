@@ -52,6 +52,8 @@ function Comment(props: { comment: CommentType }) {
     });
   }
   function reply(content: string) {
+    content = content.replaceAll(`@${props.comment.user.username}`, "");
+
     if (content.trim().length < 1) return;
 
     const commentIndex = ctx.comments.findIndex(
@@ -83,7 +85,7 @@ function Comment(props: { comment: CommentType }) {
   }
 
   return (
-    <div style={{ display: "grid", gap: "1rem" }}>
+    <div className={styles["card-container"]}>
       <Card className={styles["comment-card"]}>
         <div className={styles["rating-container"]}>
           <Rating score={props.comment.score} />

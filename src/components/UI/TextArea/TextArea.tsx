@@ -11,9 +11,10 @@ const TextArea = forwardRef(function TextArea(
     ) as HTMLTextAreaElement;
     const txtLength = textarea.value.length;
 
-    textarea.focus();
+    props.content && textarea.focus();
+
     textarea.setSelectionRange(txtLength, txtLength);
-  }, []);
+  }, [props.content]);
 
   return (
     <div id={props.id || ""} className={styles["textarea-container"]}>
@@ -22,7 +23,7 @@ const TextArea = forwardRef(function TextArea(
         cols={30}
         rows={3}
         ref={ref}
-        defaultValue={props.content ? `@${props.content} ` : ""}
+        defaultValue={props.content || ""}
       />
     </div>
   );

@@ -1,3 +1,7 @@
+.card-container {
+  display: grid;
+  gap: 1rem;
+}
 .comment-card {
   display: grid;
   grid-template-areas:
