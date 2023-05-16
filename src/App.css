@@ -28,6 +28,11 @@ main {
   bottom: 0;
 }
 
+.hidden-heading {
+  position: absolute;
+  top: -30rem;
+}
+
 @media (min-width: 1024px) {
   body {
     height: 100vh;

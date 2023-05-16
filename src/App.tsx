@@ -36,6 +36,7 @@ function App() {
   return (
     <main>
       <DataProvider>
+        <h1 className="hidden-heading">Interactive Comments Section</h1>
         <Comments />
         <AddComment
           clickEvent={clickHandler}

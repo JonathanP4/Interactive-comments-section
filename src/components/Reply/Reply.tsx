@@ -38,10 +38,7 @@ function Reply(props: {
   }
   function editReply() {
     if (textAreaRef.current) {
-      const content = textAreaRef.current.value.replaceAll(
-        `@${props.reply.replyingTo}`,
-        ""
-      );
+      const content = textAreaRef.current.value;
 
       if (content.trim().length < 1) return;
 
@@ -64,9 +61,9 @@ function Reply(props: {
   function reply(content: string) {
     if (textAreaRef.current) textAreaRef.current.focus();
 
-    content = content.replaceAll(`@${props.reply.replyingTo}`, "");
+    const updatedContent = content.replaceAll(`@${props.reply.replyingTo}`, "");
 
-    if (content.trim().length < 1) return;
+    if (updatedContent.trim().length < 1) return;
 
     const commentIndex = ctx.comments.findIndex(
       (comment) => comment.id === props.commentId
@@ -76,7 +73,7 @@ function Reply(props: {
 
     curComment.replies.push({
       id: newId,
-      content: content,
+      content: updatedContent,
       createdAt: "now",
       score: 0,
       replyingTo: props.reply.user.username,
@@ -109,10 +106,7 @@ function Reply(props: {
         <div className={styles.reply}>
           {editState && (
             <>
-              <TextArea
-                ref={textAreaRef}
-                content={`@${props.reply.replyingTo} ${props.reply.content}`}
-              />
+              <TextArea ref={textAreaRef} content={props.reply.content} />
               <ButtonCard clickEvent={editReply}>Update</ButtonCard>
             </>
           )}

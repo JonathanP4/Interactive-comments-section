@@ -19,6 +19,7 @@ const TextArea = forwardRef(function TextArea(
   return (
     <div id={props.id || ""} className={styles["textarea-container"]}>
       <textarea
+        aria-label="text area"
         id={styles.txt_area}
         cols={30}
         rows={3}
