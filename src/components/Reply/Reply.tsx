@@ -8,8 +8,8 @@ import TextArea from "../UI/TextArea/TextArea";
 import ReplyBtn from "../UI/ReplyButton/ReplyBtn";
 import styles from "./Reply.module.css";
 import ButtonCard from "../UI/ButtonCard/ButtonCard";
-import { Data } from "../../store/DataProvider";
 import AddComment from "../AddComment/AddComment";
+import { DataContext } from "../../context/data-context";
 
 function Reply(props: {
   reply: ReplyType;
@@ -18,78 +18,44 @@ function Reply(props: {
 }) {
   const [editState, setEditState] = useState(false);
   const [replyState, setReplyState] = useState(false);
-  const ctx = useContext(Data);
-
+  const ctx = useContext(DataContext);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  function removeReply() {
-    const commentIndex = ctx.comments.findIndex(
-      (comment) => comment.id === props.commentId
+  function getReplyIndex() {
+    const commentIndex = props.commentId - 1;
+    const replyIndex = ctx.comments[commentIndex].replies.findIndex(
+      (reply) => reply.id === props.reply.id
     );
-    const curComment = ctx.comments[commentIndex];
-    const updatedReplies = curComment.replies.filter(
-      (reply) => reply.id !== props.reply.id
-    );
-    curComment.replies = updatedReplies;
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
+    return replyIndex;
   }
+
+  function deleteReply() {
+    const commentIndex = props.commentId - 1;
+    ctx.remove([commentIndex, props.reply.id]);
+  }
+
   function editReply() {
+    const commentIndex = props.commentId - 1;
+
     if (textAreaRef.current) {
-      const content = textAreaRef.current.value;
+      const condition = textAreaRef.current.value.trim().length > 0;
+      const replyIndex = getReplyIndex();
 
-      if (content.trim().length < 1) return;
-
-      const commentIndex = ctx.comments.findIndex(
-        (comment) => comment.id === props.commentId
-      );
-      const curComment = ctx.comments[commentIndex];
-      const replyIndex = curComment.replies.findIndex(
-        (reply) => reply.id === props.reply.id
-      );
-      curComment.replies[replyIndex].content = content;
-      setEditState((state) => !state);
+      if (condition) {
+        ctx.edit([commentIndex, replyIndex], textAreaRef.current.value);
+        setEditState(false);
+      }
     }
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
   }
 
-  function reply(content: string) {
-    if (textAreaRef.current) textAreaRef.current.focus();
+  function replyHandler(content: string) {
+    const commentIndex = props.commentId - 1;
+    const replyIndex = getReplyIndex();
 
-    const updatedContent = content.replaceAll(`@${props.reply.replyingTo}`, "");
-
-    if (updatedContent.trim().length < 1) return;
-
-    const commentIndex = ctx.comments.findIndex(
-      (comment) => comment.id === props.commentId
-    );
-    const curComment = ctx.comments[commentIndex];
-    const newId = curComment.id + curComment.replies.length + 1;
-
-    curComment.replies.push({
-      id: newId,
-      content: updatedContent,
-      createdAt: "now",
-      score: 0,
-      replyingTo: props.reply.user.username,
-      user: {
-        image: {
-          png: ctx.current_user.image.png,
-          webp: ctx.current_user.image.webp,
-        },
-        username: ctx.current_user.username,
-      },
-    });
-    setReplyState((state) => !state);
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
+    if (content.trim().length > 0) {
+      ctx.reply([commentIndex, replyIndex], content);
+      setReplyState(false);
+    }
   }
 
   return (
@@ -120,7 +86,7 @@ function Reply(props: {
         <div className={styles.buttons}>
           {props.reply.user.username === ctx.current_user.username && (
             <>
-              <Delete clickEvent={removeReply} />
+              <Delete clickEvent={deleteReply} />
               <Edit clickEvent={() => setEditState((state) => !state)} />
             </>
           )}
@@ -131,7 +97,7 @@ function Reply(props: {
       </Card>
       {replyState && (
         <AddComment
-          clickEvent={reply}
+          clickEvent={replyHandler}
           text={{ mention: props.reply.replyingTo, btnText: "Reply" }}
         />
       )}

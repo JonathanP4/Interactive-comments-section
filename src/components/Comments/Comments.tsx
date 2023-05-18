@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import Comment from "../Comment/Comment";
 import styles from "./Comments.module.css";
-import { Data } from "../../store/DataProvider";
+import { DataContext } from "../../context/data-context";
 
 function Comments() {
-  const ctx = useContext(Data);
+  const ctx = useContext(DataContext);
   return (
     <div className={styles.comments}>
       {ctx.comments.map((comment) => (

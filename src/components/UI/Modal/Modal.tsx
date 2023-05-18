@@ -12,6 +12,7 @@ function Modal(props: {
     props.setState((state) => !state);
   }
   function deleteReply() {
+    hideModal();
     props.onClickEvent();
   }
 

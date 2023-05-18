@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import "./App.css";
 import AddComment from "./components/AddComment/AddComment";
 import Comments from "./components/Comments/Comments";
-import DataProvider, { Data } from "./store/DataProvider";
+import { DataContext } from "./context/data-context";
+import DataProvider from "./context/DataProvider";
 
 function App() {
-  const ctx = useContext(Data);
+  const ctx = useContext(DataContext);
   const [, setState] = useState(false);
   function clickHandler(content: string) {
     const el = document.querySelector(
@@ -25,10 +26,6 @@ function App() {
         username: ctx.current_user.username,
       },
       replies: [],
-    });
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
     });
     el.value = "";
     setState((state) => !state);

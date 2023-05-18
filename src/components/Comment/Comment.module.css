@@ -52,8 +52,21 @@
 }
 
 .comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
   grid-area: comment;
   color: var(--Grayish-blue);
+  margin: 1rem 0;
+  & div {
+    flex: 1 1 0;
+  }
+  & p {
+    margin: 0;
+  }
+  & button {
+    justify-self: end;
+  }
 }
 
 @media (max-width: 768px) {
@@ -63,5 +76,8 @@
       "comment comment"
       "rating buttons";
     grid-template-columns: repeat(2, 1fr);
+  }
+  .comment {
+    display: grid;
   }
 }

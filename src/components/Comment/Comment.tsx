@@ -9,79 +9,34 @@ import TextArea from "../UI/TextArea/TextArea";
 import ReplyBtn from "../UI/ReplyButton/ReplyBtn";
 import Replies from "../Replies/Replies";
 import AddComment from "../AddComment/AddComment";
-import { Data } from "../../store/DataProvider";
 import ButtonCard from "../UI/ButtonCard/ButtonCard";
-
-export type Actions = "REPLY" | "COMMENT" | "EDIT" | "REMOVE";
+import { DataContext } from "../../context/data-context";
 
 function Comment(props: { comment: CommentType }) {
   const [editState, setEditState] = useState(false);
   const [replyState, setReplyState] = useState(false);
-  const ctx = useContext(Data);
-
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const ctx = useContext(DataContext);
 
-  function removeComment() {
-    const updatedComments = ctx.comments.filter(
-      (comment) => comment.id !== props.comment.id
-    );
-    ctx.comments = updatedComments;
-
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
+  function deleteHandler() {
+    ctx.remove([props.comment.id]);
   }
-  function editComment() {
+  function editHandler() {
     if (textAreaRef.current) {
-      const content = textAreaRef.current.value;
-
-      if (content.trim().length < 1) return;
-
-      const commentIndex = ctx.comments.findIndex(
-        (comment) => comment.id === props.comment.id
-      );
-      const curComment = ctx.comments[commentIndex];
-
-      curComment.content = content;
-      setEditState((state) => !state);
+      const condition = textAreaRef.current.value.trim().length > 0;
+      const commentIndex = props.comment.id - 1;
+      if (condition) {
+        ctx.edit([commentIndex], textAreaRef.current.value);
+        setEditState(false);
+      }
     }
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
   }
-  function reply(content: string) {
-    content = content.replaceAll(`@${props.comment.user.username}`, "");
-
-    if (content.trim().length < 1) return;
-
-    const commentIndex = ctx.comments.findIndex(
-      (comment) => comment.id === props.comment.id
-    );
-    const curComment = ctx.comments[commentIndex];
-    const newId = curComment.id + curComment.replies.length + 1;
-
-    curComment.replies.push({
-      id: newId,
-      content: content,
-      createdAt: "now",
-      score: 0,
-      replyingTo: props.comment.user.username,
-      user: {
-        image: {
-          png: ctx.current_user.image.png,
-          webp: ctx.current_user.image.webp,
-        },
-        username: ctx.current_user.username,
-      },
-    });
-    setReplyState((state) => !state);
-
-    ctx.update({
-      comments: ctx.comments,
-      currentUser: ctx.current_user,
-    });
+  function replyHandler(content: string) {
+    const commentIndex = props.comment.id - 1;
+    if (content.trim().length > 0) {
+      ctx.reply([commentIndex], content);
+      setReplyState(false);
+    }
   }
 
   return (
@@ -99,7 +54,7 @@ function Comment(props: { comment: CommentType }) {
           {editState && (
             <>
               <TextArea ref={textAreaRef} content={props.comment.content} />
-              <ButtonCard clickEvent={editComment}>Update</ButtonCard>
+              <ButtonCard clickEvent={editHandler}>Update</ButtonCard>
             </>
           )}
           {!editState && <p>{props.comment.content}</p>}
@@ -107,7 +62,7 @@ function Comment(props: { comment: CommentType }) {
         <div className={styles.buttons}>
           {props.comment.user.username === ctx.current_user.username && (
             <>
-              <Delete clickEvent={removeComment} />
+              <Delete clickEvent={deleteHandler} />
               <Edit clickEvent={() => setEditState((state) => !state)} />
             </>
           )}
@@ -118,7 +73,7 @@ function Comment(props: { comment: CommentType }) {
       </Card>
       {replyState && (
         <AddComment
-          clickEvent={reply}
+          clickEvent={replyHandler}
           text={{ mention: props.comment.user.username, btnText: "Reply" }}
         />
       )}

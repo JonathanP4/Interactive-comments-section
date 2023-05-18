@@ -1,15 +1,12 @@
-export interface DataType {
-  currentUser: {
-    image: {
-      png: string;
-      webp: string;
-    };
-    username: string;
+export type CurrentUserType = {
+  image: {
+    png: string;
+    webp: string;
   };
-  comments: CommentType[];
-}
+  username: string;
+};
 
-export interface CommentType {
+export type CommentType = {
   id: number;
   content: string;
   createdAt: string;
@@ -22,9 +19,9 @@ export interface CommentType {
     username: string;
   };
   replies: ReplyType[];
-}
+};
 
-export interface ReplyType {
+export type ReplyType = {
   id: number;
   content: string;
   createdAt: string;
@@ -37,4 +34,4 @@ export interface ReplyType {
     };
     username: string;
   };
-}
+};
