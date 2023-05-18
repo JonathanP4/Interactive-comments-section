@@ -13,14 +13,13 @@ function AddComment(props: {
   const ctx = useContext(Data);
   const txtareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function clickEvent() {
-    if (txtareaRef.current) {
-      props.clickEvent(txtareaRef.current.value);
-    }
-  }
+  // function clickEvent() {
+  //   if (txtareaRef.current) {
+  //     props.clickEvent(txtareaRef.current.value);
+  //   }
+  // }
 
   async function firebaseTest() {
-    console.log("hi");
     const data = {
       test: txtareaRef.current!.value,
     };
