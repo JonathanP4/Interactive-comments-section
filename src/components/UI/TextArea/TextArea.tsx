@@ -15,26 +15,10 @@ const TextArea = forwardRef(function TextArea(
 
     textarea.setSelectionRange(txtLength, txtLength);
   }, [props.content]);
-  async function firebaseTest() {
-    const data = {
-      test: "Lorem ipsum dolor",
-    };
-    fetch(
-      "https://interactive-comments-53ec5-default-rtdb.firebaseio.com/test",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "Application/json",
-        },
-      }
-    );
-  }
 
   return (
     <div id={props.id || ""} className={styles["textarea-container"]}>
       <textarea
-        onClick={firebaseTest}
         aria-label="text area"
         id={styles.txt_area}
         cols={30}

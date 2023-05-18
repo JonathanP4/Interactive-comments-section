@@ -19,6 +19,22 @@ function AddComment(props: {
     }
   }
 
+  async function firebaseTest() {
+    console.log("hi");
+    const data = {
+      test: txtareaRef.current!.value,
+    };
+    fetch(
+      "https://interactive-comments-53ec5-default-rtdb.firebaseio.com/any.json",
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
   return (
     <Card className={`${styles["add-comment"]} ${props.className || ""}`}>
       <img src={ctx.current_user.image.png} alt="" />
@@ -26,7 +42,7 @@ function AddComment(props: {
         ref={txtareaRef}
         content={props.text.mention && `@${props.text.mention} `}
       />
-      <ButtonCard clickEvent={clickEvent}>{props.text.btnText}</ButtonCard>
+      <ButtonCard clickEvent={firebaseTest}>{props.text.btnText}</ButtonCard>
     </Card>
   );
 }
