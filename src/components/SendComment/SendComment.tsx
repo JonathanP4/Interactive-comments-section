@@ -30,7 +30,7 @@ function SendComment(props: { className?: string }) {
       content.trim().length > 0 && ctx.send(content);
       txtareaRef.current.value = "";
       fetch(
-        "https://interactive-comments-53ec5-default-rtdb.firebaseio.com/comments",
+        "https://interactive-comments-53ec5-default-rtdb.firebaseio.com/comments.json",
         {
           method: "POST",
           body: JSON.stringify(data),
