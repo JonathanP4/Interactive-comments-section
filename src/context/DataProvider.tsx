@@ -65,6 +65,7 @@ function reducer(state: State, action: Action) {
     }
 
     case "REMOVE": {
+      console.log("TEst");
       if (indexArr.length === 1) {
         const updatedComments = filterComments(state.comments, indexArr[0]);
 
@@ -153,6 +154,7 @@ function DataProvider(props: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialValue);
 
   function send(content: string) {
+    console.log("test");
     dispatch({
       type: "SEND",
       payload: {
@@ -161,6 +163,7 @@ function DataProvider(props: { children: ReactNode }) {
       },
     });
   }
+
   function edit(idArr: number[], content: string) {
     dispatch({
       type: "EDIT",
@@ -170,6 +173,7 @@ function DataProvider(props: { children: ReactNode }) {
       },
     });
   }
+
   function remove(idArr: number[]) {
     dispatch({
       type: "REMOVE",
@@ -179,6 +183,7 @@ function DataProvider(props: { children: ReactNode }) {
       },
     });
   }
+
   function reply(idArr: number[], content: string) {
     dispatch({
       type: "REPLY",
