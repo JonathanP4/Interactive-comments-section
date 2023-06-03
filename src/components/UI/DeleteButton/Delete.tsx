@@ -1,6 +1,8 @@
-import deleteIcon from "/assets/icon-delete.svg";
 import styles from "./Delete.module.css";
+
+import deleteIcon from "/assets/icon-delete.svg";
 import Modal from "../Modal/Modal";
+
 import { useState } from "react";
 
 function Delete(props: { clickEvent: () => void }) {

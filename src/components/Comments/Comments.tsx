@@ -1,13 +1,17 @@
-import { useContext } from "react";
-import Comment from "../Comment/Comment";
 import styles from "./Comments.module.css";
-import { DataContext } from "../../context/data-context";
+
+import Comment from "../Comment/Comment";
+
+import { useSelector } from "react-redux";
+import { CommentType } from "../../types/types";
 
 function Comments() {
-  const ctx = useContext(DataContext);
+  const comments = useSelector(
+    (state: { comments: CommentType[] }) => state.comments
+  );
   return (
     <div className={styles.comments}>
-      {ctx.comments.map((comment) => (
+      {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
     </div>

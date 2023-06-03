@@ -35,3 +35,5 @@ export type ReplyType = {
     username: string;
   };
 };
+
+export type ActionTypes = "COMMENT" | "REPLY";

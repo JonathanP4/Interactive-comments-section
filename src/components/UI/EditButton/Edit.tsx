@@ -1,5 +1,6 @@
-import editIcon from "/assets/icon-edit.svg";
 import styles from "./Edit.module.css";
+
+import editIcon from "/assets/icon-edit.svg";
 
 function Edit(props: { clickEvent: () => void }) {
   return (

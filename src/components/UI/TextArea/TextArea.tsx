@@ -1,5 +1,6 @@
-import { Ref, forwardRef, useEffect } from "react";
 import styles from "./TextArea.module.css";
+
+import { Ref, forwardRef, useEffect } from "react";
 
 const TextArea = forwardRef(function TextArea(
   props: { content?: string; id?: string },

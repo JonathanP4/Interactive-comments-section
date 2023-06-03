@@ -1,5 +1,7 @@
 import styles from "./Replies.module.css";
+
 import Reply from "../Reply/Reply";
+
 import { ReplyType } from "../../types/types";
 
 function Replies(props: { replies: ReplyType[]; commentId: number }) {

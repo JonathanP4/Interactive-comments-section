@@ -1,40 +1,66 @@
-import { useContext, useRef, useState } from "react";
-import { CommentType } from "../../types/types";
+import styles from "./Comment.module.css";
+
 import Card from "../UI/Card/Card";
 import Delete from "../UI/DeleteButton/Delete";
 import Edit from "../UI/EditButton/Edit";
 import Rating from "../UI/RatingButton/Rating";
-import styles from "./Comment.module.css";
 import TextArea from "../UI/TextArea/TextArea";
 import ReplyBtn from "../UI/ReplyButton/ReplyBtn";
 import Replies from "../Replies/Replies";
 import AddComment from "../AddComment/AddComment";
 import ButtonCard from "../UI/ButtonCard/ButtonCard";
-import { DataContext } from "../../context/data-context";
+
+import { useRef, useState } from "react";
+import { CommentType, CurrentUserType } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { actionTypes, commentActions } from "../../store/comments";
 
 function Comment(props: { comment: CommentType }) {
   const [editState, setEditState] = useState(false);
   const [replyState, setReplyState] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const ctx = useContext(DataContext);
+
+  const dispatch = useDispatch();
+
+  const currentUser = useSelector(
+    (state: { current_user: CurrentUserType }) => state.current_user
+  );
 
   function deleteHandler() {
-    ctx.remove([props.comment.id]);
+    dispatch(
+      commentActions.delete({ type: actionTypes.comment, id: props.comment.id })
+    );
   }
   function editHandler() {
     if (textAreaRef.current) {
       const condition = textAreaRef.current.value.trim().length > 0;
       const commentIndex = props.comment.id - 1;
+
       if (condition) {
-        ctx.edit([commentIndex], textAreaRef.current.value);
+        dispatch(
+          commentActions.edit({
+            index: commentIndex,
+            content: textAreaRef.current.value,
+            type: actionTypes.comment,
+          })
+        );
         setEditState(false);
       }
     }
   }
+
   function replyHandler(content: string) {
     const commentIndex = props.comment.id - 1;
+    const mention = props.comment.user.username;
+
     if (content.trim().length > 0) {
-      ctx.reply([commentIndex], content);
+      dispatch(
+        commentActions.reply({
+          index: commentIndex,
+          content,
+          mention,
+        })
+      );
       setReplyState(false);
     }
   }
@@ -60,13 +86,13 @@ function Comment(props: { comment: CommentType }) {
           {!editState && <p>{props.comment.content}</p>}
         </div>
         <div className={styles.buttons}>
-          {props.comment.user.username === ctx.current_user.username && (
+          {props.comment.user.username === currentUser.username && (
             <>
               <Delete clickEvent={deleteHandler} />
               <Edit clickEvent={() => setEditState((state) => !state)} />
             </>
           )}
-          {props.comment.user.username !== ctx.current_user.username && (
+          {props.comment.user.username !== currentUser.username && (
             <ReplyBtn clickEvent={() => setReplyState((state) => !state)} />
           )}
         </div>

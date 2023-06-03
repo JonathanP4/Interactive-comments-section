@@ -1,7 +1,9 @@
-import { useState } from "react";
 import styles from "./Rating.module.css";
+
 import minusIcon from "/assets/icon-minus.svg";
 import plusIcon from "/assets/icon-plus.svg";
+
+import { useState } from "react";
 
 function Rating(props: { score: number; className?: string }) {
   const [rating, setRating] = useState(props.score);

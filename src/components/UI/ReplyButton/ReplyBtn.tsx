@@ -1,5 +1,6 @@
-import replyIcon from "/assets/icon-reply.svg";
 import styles from "./ReplyBtn.module.css";
+
+import replyIcon from "/assets/icon-reply.svg";
 
 function ReplyBtn(props: { clickEvent: () => void }) {
   return (

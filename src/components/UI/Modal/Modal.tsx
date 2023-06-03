@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
 import styles from "./Modal.module.css";
+
+import React, { useRef } from "react";
 import { createPortal } from "react-dom";
 
 function Modal(props: {
