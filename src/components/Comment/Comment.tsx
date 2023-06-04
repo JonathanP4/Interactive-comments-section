@@ -18,10 +18,9 @@ import { actionTypes, commentActions } from "../../store/comments";
 function Comment(props: { comment: CommentType }) {
   const [editState, setEditState] = useState(false);
   const [replyState, setReplyState] = useState(false);
+
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
   const dispatch = useDispatch();
-
   const currentUser = useSelector(
     (state: { current_user: CurrentUserType }) => state.current_user
   );
@@ -31,6 +30,7 @@ function Comment(props: { comment: CommentType }) {
       commentActions.delete({ type: actionTypes.comment, id: props.comment.id })
     );
   }
+
   function editHandler() {
     if (textAreaRef.current) {
       const condition = textAreaRef.current.value.trim().length > 0;

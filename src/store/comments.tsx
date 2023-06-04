@@ -1,14 +1,32 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 import data from "../data.json";
+import { CommentType } from "../types/types";
 
 export const actionTypes = {
   comment: "COMMENT",
   reply: "REPLY",
 };
 
+function sendToLocalStorage(comments: CommentType[]) {
+  localStorage.setItem("comments", JSON.stringify(comments));
+}
+
+localStorage.setItem("currentUser", JSON.stringify(data.currentUser));
+
+const localStorageComments =
+  localStorage.getItem("comments") || JSON.stringify(data.comments);
+const localStorageCurrentUser =
+  localStorage.getItem("currentUser") || JSON.stringify(data.currentUser);
+
+const currentUser = JSON.parse(localStorageCurrentUser);
+const comments: CommentType[] = JSON.parse(localStorageComments);
+
 const commentsSlice = createSlice({
   name: "comments",
-  initialState: { comments: data.comments, current_user: data.currentUser },
+  initialState: {
+    comments,
+    current_user: currentUser,
+  },
   reducers: {
     edit(state, action) {
       if (action.payload.type === actionTypes.comment) {
@@ -23,6 +41,7 @@ const commentsSlice = createSlice({
         state.comments[commentIndex].replies[replyIndex].content =
           action.payload.content;
       }
+      sendToLocalStorage(state.comments);
     },
 
     delete(state, action) {
@@ -39,6 +58,7 @@ const commentsSlice = createSlice({
           (reply) => reply.id !== action.payload.id
         );
       }
+      sendToLocalStorage(state.comments);
     },
 
     reply(state, action) {
@@ -51,7 +71,7 @@ const commentsSlice = createSlice({
       const replyData = {
         id,
         content: action.payload.content,
-        createdAt: "now",
+        createdAt: 'now',
         score: 0,
         replyingTo: action.payload.mention,
         user: {
@@ -63,10 +83,12 @@ const commentsSlice = createSlice({
         },
       };
       currentComment.replies.push(replyData);
+      sendToLocalStorage(state.comments);
     },
 
     comment(state, action) {
       state.comments.push(action.payload);
+      sendToLocalStorage(state.comments);
     },
   },
 });

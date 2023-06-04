@@ -27,7 +27,6 @@ function Reply(props: {
   const comments = useSelector(
     (state: { comments: CommentType[] }) => state.comments
   );
-
   const dispatch = useDispatch();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -74,7 +73,6 @@ function Reply(props: {
   function replyHandler(content: string) {
     const commentIndex = props.commentId - 1;
     const mention = props.reply.user.username;
-    // const replyIndex = getReplyIndex();
 
     if (content.trim().length > 0) {
       dispatch(

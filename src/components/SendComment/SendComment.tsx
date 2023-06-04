@@ -25,6 +25,7 @@ function SendComment(props: { className?: string }) {
     if (txtareaRef.current) {
       const id = comments.length + 1;
       const content = txtareaRef.current.value;
+
       const commentData = {
         id: id,
         content: content,
@@ -43,17 +44,6 @@ function SendComment(props: { className?: string }) {
       content.trim().length > 0 &&
         dispatch(commentActions.comment(commentData));
       txtareaRef.current.value = "";
-
-      // fetch(
-      //   "https://interactive-comments-53ec5-default-rtdb.firebaseio.com/comments.json",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify(commentData),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
     }
   }
 
